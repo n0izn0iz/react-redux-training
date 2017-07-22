@@ -1,8 +1,9 @@
 const fetchPosts = (url) => {
   return fetch(url).then((response) => {
-    return response.json().then((json) => {
-      return (json);
-    });
+    if (response.status >= 200 && response.status < 400)
+      return response.json();
+    else
+      return Promise.reject();
   });
 }
 

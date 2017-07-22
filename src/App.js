@@ -10,19 +10,18 @@ import changeTitle from './actions/changeTitle'
 import changeBody from './actions/changeBody'
 import createPost from './actions/createPost'
 import Thread from './components/Thread'
+import url from './url'
+import changeHelpMessage from './actions/changeHelpMessage'
 
 class App extends Component {
   componentDidMount() {
-    console.log("AppDidMount")
     store.subscribe(() => {
       this.forceUpdate();
     });
-    console.log("Fetching posts...");
-    const result = fetchPosts('http://localhost:3001/posts');
-    result.then((posts) => {
-      console.log("Fetched posts:");
-      console.log(posts);
+    fetchPosts(url).then((posts) => {
       store.dispatch(addPosts(posts));
+    }).catch((error) => {
+      store.dispatch(changeHelpMessage("Failed to fetch posts: " + error, "danger"));
     });
   }
   createPost() {
@@ -39,7 +38,7 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>Welcome to React-Redux-Thunk-JSONPlaceholder demo!</h2>
         </div>
         <PostForm
           post={ store.getState().newPost }
@@ -47,6 +46,9 @@ class App extends Component {
           changeTitle={ this.changeTitle.bind(this) }
           changeBody={ this.changeBody.bind(this) }
         />
+    		<span className={ "label label-" + store.getState().helpStatus }>
+          { store.getState().helpMessage }
+        </span>
         <Thread posts={ store.getState().posts } />
       </div>
     );

@@ -1,3 +1,6 @@
+import changeHelpMessage from './changeHelpMessage';
+import url from '../url'
+
 const createPostAction = (id) => {
   return {
     type: 'CREATE_POST',
@@ -11,13 +14,15 @@ const createPost = (post) => {
       method: 'POST',
       data: post
     };
-    console.log("Posting post")
-    fetch('http://localhost:3001/posts', init).then((response) => {
-      return (response.json());
+    fetch(url, init).then((response) => {
+      if (response.status >= 200 && response.status < 400)
+        return response.json();
+      else
+        return Promise.reject(response.status);
     }).then((json) => {
-      console.log("Post posted with id")
-      console.log(json)
       dispatch(createPostAction(json.id))
+    }).catch((error) => {
+      dispatch(changeHelpMessage("Failed to create post: " + error, "danger"))
     });
   });
 };

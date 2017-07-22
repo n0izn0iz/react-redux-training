@@ -18,11 +18,35 @@ class PostForm extends React.Component {
     this.props.changeBody(event.target.value);
   }
   render() {
-    return <form onSubmit={ this.submit }>
-      <label>Title<input value={ this.props.post.title } onChange={ this.changeTitle } type="text" /></label>
-      <label>Body<input value={ this.props.post.body } onChange={ this.changeBody } type="text" /></label>
-      <input type="submit" />
-    </form>;
+    return (
+      <form onSubmit={ this.submit }>
+        <h3>Create new post</h3>
+        <span className="label label-warning">Due to the nature of JSONPlaceholder, you are limited to one new post, subsequent new posts will replace the existing one</span>
+        <div className="form-group">
+          <label>
+            Title
+            <input
+              className="form-control"
+              value={ this.props.post.title }
+              onChange={ this.changeTitle }
+              type="text"
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label>
+            Body
+            <textarea
+              className="form-control"
+              value={ this.props.post.body }
+              onChange={ this.changeBody }
+              type="text"
+            />
+          </label>
+        </div>
+        <input className="btn btn-default" type="submit" />
+      </form>
+    );
   }
 }
 
