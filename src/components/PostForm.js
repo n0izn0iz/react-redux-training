@@ -4,7 +4,10 @@ const PostForm = (props) => {
   return (
     <form onSubmit={ bindSubmit(props.createPost, props.post) }>
       <h3>Create new post</h3>
-      <span className="label label-warning">Due to the nature of JSONPlaceholder, you are limited to one new post, subsequent new posts will replace the existing one</span>
+      <span className="label label-info">
+        Due to the nature of JSONPlaceholder, you are limited to one new post,
+        subsequent new posts will replace the existing one
+      </span>
       <Title
         value={ props.post.title }
         onChange={ bindValueGetter(props.changeTitle) }
