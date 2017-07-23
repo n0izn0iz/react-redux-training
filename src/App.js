@@ -2,37 +2,34 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 // My stuff
-import store from './store'
+import url from './config/url'
+
+import store from './utils/store'
+import fetchJSON from './utils/fetchJSON'
+
 import PostForm from './components/PostForm'
-import fetchPosts from './fetchPosts'
-import addPosts from './actions/addPosts'
-import changeTitle from './actions/changeTitle'
-import changeBody from './actions/changeBody'
-import createPost from './actions/createPost'
 import Thread from './components/Thread'
-import url from './url'
+
+import addPosts from './actions/addPosts'
+import changeBody from './actions/changeBody'
 import changeHelpMessage from './actions/changeHelpMessage'
+import changeTitle from './actions/changeTitle'
+import createPost from './actions/createPost'
 
 class App extends Component {
   componentDidMount() {
     store.subscribe(() => {
       this.forceUpdate();
     });
-    fetchPosts(url).then((posts) => {
+    fetchJSON(url).then((posts) => {
       store.dispatch(addPosts(posts));
     }).catch((error) => {
       store.dispatch(changeHelpMessage("Failed to fetch posts: " + error, "danger"));
     });
   }
-  createPost() {
-      store.dispatch(createPost());
-  }
-  changeTitle(title) {
-      store.dispatch(changeTitle(title))
-  }
-  changeBody(body) {
-      store.dispatch(changeBody(body))
-  }
+  createPost() { store.dispatch(createPost()); }
+  changeTitle(title) { store.dispatch(changeTitle(title)) }
+  changeBody(body) { store.dispatch(changeBody(body)) }
   render() {
     return (
       <div className="App">

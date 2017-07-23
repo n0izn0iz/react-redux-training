@@ -1,5 +1,6 @@
 import changeHelpMessage from './changeHelpMessage';
-import url from '../url'
+import url from '../config/url'
+import fetchJSON from '../utils/fetchJSON'
 
 const createPostAction = (id) => {
   return {
@@ -14,12 +15,7 @@ const createPost = (post) => {
       method: 'POST',
       data: post
     };
-    fetch(url, init).then((response) => {
-      if (response.status >= 200 && response.status < 400)
-        return response.json();
-      else
-        return Promise.reject(response.status);
-    }).then((json) => {
+    fetchJSON(url, init).then((json) => {
       dispatch(createPostAction(json.id))
     }).catch((error) => {
       dispatch(changeHelpMessage("Failed to create post: " + error, "danger"))
