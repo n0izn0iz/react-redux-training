@@ -38,7 +38,7 @@ const Body = (props) => {
   return (
     <div className="form-group">
       <label>
-        Title
+        Body
         <textarea
           className="form-control"
           value={ props.value }
