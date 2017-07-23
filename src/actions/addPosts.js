@@ -19,5 +19,4 @@ const addPosts = () => {
   });
 }
 
-
 export default addPosts;
