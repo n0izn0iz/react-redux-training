@@ -30,7 +30,7 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React-Redux-Thunk-JSONPlaceholder demo!</h2>
+          <h2>Welcome to React-Redux-Thunk-JSONPlaceholder</h2>
         </div>
         <PostForm
           post={ store.getState().newPost }
